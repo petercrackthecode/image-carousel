@@ -1,34 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect, FC } from "react";
+import ImageCarousel from "./components/ImageCarousel";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: FC = () => {
+  const [images, setImages] = useState<string[]>([]);
+  useEffect(() => {
+    for (let i = 0; i < 5; ++i)
+      images.push(
+        `https://picsum.photos/800/600?random=${Math.floor(
+          Math.random() * 1000
+        )}`
+      );
+  }, []);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ImageCarousel images={images} transitionTime={1000} interval={2000} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
